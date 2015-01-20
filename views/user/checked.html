@@ -1,0 +1,20 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>标题</th>
+			<th>日期</th>
+			<th>审核时间</th>
+			<th>审核人</th>
+		</tr>
+	</thead>
+    <tbody>
+		<% for(var i=0; i< topics.length; i++)  { %>
+		<tr data-id="<%= topics[i]._id %>">
+		    <td><a href="/topic/<%= topics[i].id %>"><%= topics[i].title %></a></td>
+		    <td><%= topics[i].friendly_create_at %></td>
+		    <td><%= topics[i].friendly_checkedDate %></td>
+		    <td><%= topics[i].checkedBy && topics[i].checkedBy.name %></td>
+		</tr>
+		<% } %>
+    </tbody>
+</table>

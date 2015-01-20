@@ -1,0 +1,89 @@
+<div class="main page">
+    <article class="article">
+        <section class="article-container">
+            <article class="article-list">
+                <h4>
+                    <div><a href="<%= topic.demo %>"><%= topic.title %></a></div>
+                    <small><%= topic.author.name %> 发布于<%= topic.friendly_create_at %> 分类：<%- partial('tag', {collection:topic.tags.split(','), as:'tag'}) %></small>
+                </h4>
+                <div>
+                  <%- markdown(topic.content) %>
+                </div>
+                <div class="summary">
+                    <% if (topic.dependency) { %>
+                    <div class="summary-item">依赖：<%= topic.dependency %></div>
+                    <% } else { %>
+                    
+                    <% } %>
+                    
+                    <% if (topic.demo) { %>
+                    <div class="summary-item">演示：<a href="<%= topic.demo %>"><%= topic.demo %></a></div>
+                    <% } else { %>
+                    
+                    <% } %>
+
+                    <% if (topic.doc) { %>
+                    <div class="summary-item">文档：<a href="<%= topic.doc %>"><%= topic.doc %></a></div>
+                    <% } else { %>
+                    
+                    <% } %>
+
+                    <% if (topic.git) { %>
+                    <div class="summary-item">Github：<a href="<%= topic.git %>"><%= topic.git %></a></div>
+                    <% } else { %>
+                    
+                    <% } %>
+
+                    <% if (topic.license) { %>
+                    <div class="summary-item">License：<a href="<%= topic.license %>"><%= topic.license %></a></div>
+                    <% } else { %>
+                    
+                    <% } %>
+                </div>
+            </article>
+        </section>
+    </article>
+</div>
+<div class="page-sidebar">
+    <div class="op social">
+        <div class="op-heading clearfix">
+            <span>分享至 : </span>
+            <span class="pull-right">
+                <a href="" id="weibo" ><img src="/public/images/weibo.png" style="width:22px;height:22px;margin-right:15px;" ></a>
+                <!-- <a href="" id="weixin"><img src="/public/images/weixin.png" style="width:22px;height:22px;margin-right:15px;"></a> -->
+            </span>
+            
+        </div>
+        <div class="op-body">
+        </div>
+    </div>
+    <div class="op">
+        <div class="op-heading">
+            <span>邮件订阅</span>
+        </div>
+        <div class="op-body">
+            <input type="text" placeholder="例如：example@qq.com"  id="sub" />
+        </div> 
+    </div>
+    <div class="op">
+        <div class="op-heading">
+            <span>搜索</span>
+        </div>
+        <div class="op-body">
+            <input type="text" placeholder="例如：弹出框 滚动 地图" id="sea" />
+        </div> 
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        // 去处分类按钮
+        $('.wf-navbar-doc').css({display:'none'});
+
+
+        // 微博分享代码
+        $('#weibo').on('click', function() {
+            ((function(s,d,e,r,l,p,t,z,c){var f='http://v.t.sina.com.cn/share/share.php?appkey=<%= config.weibo_key %>',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=640,height=370,left=',(s.width-640)/2,',top=',(s.height-370)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else a();})(screen,document,encodeURIComponent,'','',$('.article-list img').attr('src'),'分享来自<%= config.name %>的资源：<%= topic.title %>','',''));
+        });
+    });
+</script>
+

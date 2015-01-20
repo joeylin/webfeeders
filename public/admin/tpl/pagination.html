@@ -1,0 +1,5 @@
+<ul class="pagination" ng-controller="pagination">
+  <li ng-class="{disabled: current === 1" ng-click="prev()" ><a href>{{prevText}}</a></li>
+  <li><a href >{{current}}</a></li>
+  <li ng-class="{disabled: current >= total}" ng-click="pnext()"><a href>{{nextText}}</a></li>
+</ul>

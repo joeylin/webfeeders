@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- meta -->
+  <meta charset="utf-8"/>
+  <meta name='description' content='<%= config.description %>'>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>WebFeeders后台管理系统</title>
+  <meta content="_csrf" name="csrf-param">
+  <meta content="<%= csrf %>" name="csrf-token">
+
+  <!-- style -->
+  <%- Loader('/public/stylesheets/admin.min.css')
+  .css('/public/libs/bootstrap/css/bootstrap.min.css')
+  .css('/public/fonts/font-awesome-4.2.0/css/font-awesome.min.css')
+  .css('/public/admin/bower_components/toastr/toastr.css')
+  .css('/public/admin/bower_components/sweet-alert/sweet-alert.css')
+  .css('/public/stylesheets/admin.css')
+  .done(assets, config.site_static_host, config.mini_assets)
+  %>
+
+  <!--  针对ng-cloak指令优化，防止首次加载闪烁  -->
+  <style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+  </style>
+  
+</head>
+<body ng-cloak>
+<!-- navbar -->
+
+<div class="navbar navbar-default ">
+  <div class="container">    
+    <div class="navbar-header">
+      <button class="navbar-toggle collapsed wf-navbar-toggle" type="button" data-toggle="collapse" data-target=".wf-header">
+        <span class="sr-only">Toggle</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand"><%- config.site_logo || config.name %></a>
+    </div>
+    <div class="collapse navbar-collapse wf-header" role="navigation">
+      <ul class="nav navbar-nav">
+        <li><a href="/">网站首页</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href='/' target="_self">{{ global.user.name }}</a></li>
+        <li><a href='/signout' rel="nofollow" target="_self">退出</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container"> 
+  <%- body %> 
+</div>
+
+<footer class="footer">
+  <div class="text-center">
+    ©Copyright 2014 WebFeeders. All rights reserved.
+  </div>
+</footer>
+<script type="text/javascript">
+  // 导入用户信息
+  window.WF_USER = {};
+  window.WF_USER._id = '<%= current_user._id %>';
+  window.WF_USER.id = '<%= current_user.id %>';
+  window.WF_USER.name = '<%= current_user.name %>';
+</script>
+
+<%- Loader('/public/admin.min.js')
+  .js('/public/admin/bower_components/jquery/jquery.js')
+  .js('/public/admin/bower_components/angular/angular.js')
+  .js('/public/admin/bower_components/angular-animate/angular-animate.js')
+  .js('/public/admin/bower_components/angular-cookies/angular-cookies.js')
+  .js('/public/admin/bower_components/angular-resource/angular-resource.js')
+  .js('/public/admin/bower_components/angular-route/angular-route.js')
+  .js('/public/admin/bower_components/toastr/toastr.js')
+  .js('/public/admin/bower_components/sweet-alert/sweet-alert.min.js')
+  .js('/public/admin/libs/angular-ui.js')
+  .js('/public/admin/libs/tools.js')
+  .js('/public/admin/libs/locale_zh-cn.js')
+  .js('/public/admin/js/router.js')
+  .js('/public/admin/js/services.js')
+  .js('/public/admin/js/filters.js')
+  .js('/public/admin/js/directives.js')
+  .js('/public/admin/js/controllers.js')
+  .js('/public/admin/js/app.js')
+  .done(assets, config.site_static_host, config.mini_assets)
+%>
+</body>
+</html>

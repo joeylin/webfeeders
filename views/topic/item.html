@@ -1,0 +1,42 @@
+
+<article class="article-list" data-id="<%= topic._id %>">
+    <h4>
+        <div><a href="/topic/<%= topic.id %>"><%= topic.title %></a></div>
+        <small><%= topic.author.name %> 发布于 <%= topic.friendly_create_at %> 分类：<%- partial('tag', {collection:topic.tags.split(','), as:'tag'}) %></small>
+    </h4>
+    <div>
+        <%- markdown(topic.content) %>
+    </div>
+    <div class="summary">
+        <% if (topic.dependency) { %>
+        <div class="summary-item">依赖：<%= topic.dependency %></div>
+        <% } else { %>
+        
+        <% } %>
+        
+        <% if (topic.demo) { %>
+        <div class="summary-item">演示：<a href="<%= topic.demo %>"><%= topic.demo %></a></div>
+        <% } else { %>
+        
+        <% } %>
+
+        <% if (topic.doc) { %>
+        <div class="summary-item">文档：<a href="<%= topic.doc %>"><%= topic.doc %></a></div>
+        <% } else { %>
+        
+        <% } %>
+
+        <% if (topic.git) { %>
+        <div class="summary-item">Github：<a href="<%= topic.git %>"><%= topic.git %></a></div>
+        <% } else { %>
+        
+        <% } %>
+
+        <% if (topic.license) { %>
+        <div class="summary-item">License：<a href="<%= topic.license %>"><%= topic.license %></a></div>
+        <% } else { %>
+        
+        <% } %>
+    </div>
+</article>
+<hr style="margin-top:10px;margin-bottom:0px;">

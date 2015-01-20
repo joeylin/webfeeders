@@ -1,0 +1,41 @@
+<%- partial('sidebar') %>
+<div class="main">
+    <div class="search">
+        <form class="form-horizontal"  action='/search' method='get'>
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="例如：弹出框 滚动 地图" name="keyword" id="keyword" value="<%= tag %>" >
+              <div class="input-group-addon"><button type="submit" class="search-btn">搜索</button></div>
+            </div>
+        </form>
+    </div>
+    <article class="article">
+        <header class="article-header">
+            <a href="">标签：<%= tag %></a>
+        </header>
+        <section class="article-container">
+            <% if (typeof(topics) !== 'undefined' && topics.length > 0) { %>
+            <%- partial('topic/list', {
+                topics: topics,
+                pages: pages,
+                current_page: current_page,
+                base: '/tags/' + tag
+                }) %>
+            <% } else { %>
+                <div class="text-center" style="padding:40px 10px;">
+                  <div class="media" style="display:inline-block;">
+                    <span class="media-left">
+                      <i class="fa fa-fw fa-frown-o" style="font-size:4em;"></i>
+                    </span>
+                    <div class="media-body text-left">
+                      <h3 style="margin-top:0;margin-bottom:10px;">暂无收录该标签的资源 </h3>
+                      <h4>查阅 <a href="">插件索引</a>，重新选择标签</h4>
+                    </div>
+                  </div>
+                </div>
+            <% } %>
+        </section>
+    </article>
+</div>
+
+
+

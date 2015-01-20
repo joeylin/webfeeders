@@ -1,0 +1,47 @@
+<div id="topic_list">
+  <%- partial('../topic/item', {collection:topics, as:'topic'}) %>
+</div>
+
+<nav current_page='<%= current_page %>' class="main-paging">
+    <div class="paging clearfix">
+        <% var base_url = base + (base.indexOf('?') < 0 ? '?' : '&') + 'page='; %>
+        <% if (current_page == 1) { %>
+        <a class="diabled first">首页</a>
+        <% } else { %>
+        <a href="<%= base_url %>1" class="first">首页</a>
+        <% } %>
+
+        <%
+        var page_start = current_page - 2 > 0 ? current_page - 2 : 1;
+        var page_end = page_start + 3 >= pages ? pages : page_start + 3;
+        %>
+
+        <% if (current_page > 1) { %>
+        <a href="<%= base_url + (current_page - 1) %>">上一页</a>
+        <% } else { %>
+        <a href="#" class="disabled">上一页</a>
+        <% } %>
+
+        <% for(var i = page_start; i <= page_end; i++) { %>
+        <% if (i === current_page) { %>
+        <a class="current"><%= i %></a>
+        <% } else { %>
+        <a href='<%= base_url + i %>'><%= i %></a>
+        <% } %>
+        <% } %>
+
+        <% if (current_page < pages ) { %>
+        <a href="<%= base_url + (current_page + 1) %>">下一页</a>
+        <% } else { %>
+        <a href="#" class="disabled">下一页</a>
+        <% } %>
+
+        <% if (current_page == pages) { %>
+        <a href="" class="disbaled last">尾页</a>
+        <% } else { %>
+        <a href="<%= base_url + pages %>" class="last">尾页</a>
+        <% } %>
+
+    </div>
+</nav>
+

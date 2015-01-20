@@ -1,0 +1,9 @@
+<% layout('admin_layout') -%>
+<div class="col-md-3">
+  <div class="list-group">
+    <a href="/admin/users" class="list-group-item" ng-class="{active: current.path === 'users'}">用户管理</a>
+    <a href="/admin/topics" class="list-group-item" ng-class="{active: current.path === 'topics'}">资源管理</a>
+    <a href="/admin/unchecked" class="list-group-item" ng-class="{active: current.path === 'unchecked'}">待审核资源</a>
+  </div>
+</div>
+<div class="col-md-9" ng-view></div> 

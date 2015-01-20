@@ -1,0 +1,10 @@
+<tr>
+    <td><%= topic.title %></td>
+    <td><%= topic.friendly_create_at %></td>
+    <td><%= topic.tags %></td>
+    <td><%= topic.author && topic.author.name || '-' %></td>
+    <td>
+      <a href="/topic/<%= topic._id %>/edit" class="btn btn-xs btn-primary">编辑</a>
+      <button class="btn btn-xs btn-danger admin-del" data-id="<%= topic._id %>">删除</button>
+    </td>
+</tr>

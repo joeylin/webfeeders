@@ -1,0 +1,34 @@
+<div class="panel panel-default">
+  <div class="panel-heading">资源管理</div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>标题</th>
+          <th>日期</th>
+          <th>作者</th>
+          <th>审核时间</th>
+          <th>审核人</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+        <tbody>
+        <tr ng-repeat="topic in content">
+            <td width=150><a href="/topic/{{topic.id}}">{{ topic.title }}</a></td>
+            <td>{{ topic.create_at | formatDate:true }}</td>
+            <td>{{ topic.author_id && topic.author_id.name }}</td>
+            <td>{{ topic.friendly_checkedDate | formatDate }}</td>
+            <td>{{ topic.checkedBy && topic.checkedBy.name || '系统审核' }}</td>
+            <td width=80>  
+              <button class="btn btn-xs btn-danger admin-del" ng-click="del(topic)">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="pagination">
+      <li ng-class="{disabled: pager.current <= 1}" ng-click="prev()"><a href>上一页</a></li>
+      <li><a href>{{pager.current}}</a></li>
+      <li ng-class="{disabled: pager.current >= pager.total}" ng-click="next()"><a href>下一页</a></li>
+    </ul>
+  </div>
+</div>

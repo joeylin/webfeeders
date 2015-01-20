@@ -1,0 +1,17 @@
+<%- partial('sidebar') %>
+<div class="col-md-9">
+  <div class="panel panel-default">
+    <div class="panel-heading"><%= title %></div>
+    <div class="panel-body">
+      <% if(typeof(topics) !== 'undefined' && topics.length > 0 ){ %>
+      <%- partial(topicType, { topics: topics }) %>
+      <% } else { %>
+      <div>
+        <p> 无资源 </p>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+

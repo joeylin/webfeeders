@@ -1,0 +1,35 @@
+<%- partial('sidebar') %>
+<div class="main">
+    <div class="search">
+        <form class="form-horizontal"  action='/search' method='get'>
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="例如：弹出框 滚动 地图" name="keyword" id="keyword" >
+              <div class="input-group-addon">
+                <button type="submit" class="search-btn">搜索</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    <article class="article">
+        <header class="article-header">
+            <a href="">最新推荐</a>
+        </header>
+        <section class="article-container">
+            <% if (typeof(topics) !== 'undefined' && topics.length > 0) { %>
+            <%- partial('topic/list', {
+                topics: topics,
+                pages: pages,
+                current_page: current_page,
+                base: '/home'
+                }) %>
+            <% } else { %>
+                <div>
+                    <h4 class="text-center">暂无资源</h4>
+                </div>
+            <% } %>
+        </section>
+    </article>
+</div>
+
+
+

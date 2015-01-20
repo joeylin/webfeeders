@@ -1,0 +1,153 @@
+
+<div id='content' class="create">
+  <div>
+    <div class='header'>
+      <ol class='breadcrumb' style="background-color:#fff;">
+        <li><a href='/'>主页</a></li>
+        <% if(typeof(action) !== 'undefined' && action == 'edit'){ %>
+        <li class='active'>编辑主题</li>
+        <% }else{ %>
+        <li class='active'>发布主题</li>
+        <% } %>
+      </ol>
+    </div>
+    <div class='post'>
+      <% if(typeof(edit_error) !== 'undefined' && edit_error){ %>
+      <div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">&times;</a>
+        <strong><%= edit_error %></strong>
+      </div>
+      <% } %>
+      <% if(typeof(error) !== 'undefined' && error){ %>
+      <div class="alert alert-error">
+        <strong><%= error %></strong>
+      </div>
+      <% }else{ %>
+      <% if (typeof(action) !== 'undefined' && action === 'edit') { %>
+      <form id='create_topic_form' action='/topic/<%= topic_id %>/edit' method='post' data-id="<%= topic_id %>">
+      <% } else { %>
+      <form id='create_topic_form' action='/topic/create' method='post'>
+      <% } %>
+        <fieldset>
+          <div class="row">
+              <div class="col-md-2">
+                <label>标题：</label>
+              </div>
+              <div class="col-md-7">
+                <input autofocus class="form-control" id='title' name='title' type="text" placeholder="标题字数 3 字以上" value="<%= typeof(title) !== 'undefined' && title || '' %>">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-2">
+                <label>依赖：</label>
+              </div>
+              <div class="col-md-7">
+                <input autofocus class="form-control" id='dependency' name='dependency' type="text" placeholder="插件依赖" value="<%= typeof(dependency) !== 'undefined' && dependency || '' %>">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-2">
+                <label>演示：</label>
+              </div>
+              <div class="col-md-7">
+                <input autofocus class="form-control" id='demo' name='demo' type="text" placeholder="推荐插件的演示地址" value="<%= typeof(demo) !== 'undefined' && demo || '' %>">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-2">
+                <label>文档：</label>
+              </div>
+              <div class="col-md-7">
+                <input autofocus class="form-control" id='doc' name='doc' type="text" placeholder="插件的文档地址" value="<%= typeof(doc) !== 'undefined' && doc || '' %>">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-2">
+                <label>Git：</label>
+              </div>
+              <div class="col-md-7">
+                <input autofocus class="form-control" id='git' name='git' type="text" placeholder="插件的git地址" value="<%= typeof(git) !== 'undefined' && git || '' %>">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-2">
+                <label>License：</label>
+              </div>
+              <div class="col-md-7">
+                <input autofocus class="form-control" id='license' name='license' type="text" placeholder="插件的license" value="<%= typeof(license) !== 'undefined' && license || '' %>">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-2">
+                <label>标签：</label>
+              </div>
+              <div class="col-md-7">
+                <input autofocus class="form-control" id='tags' name='tags' type="text" placeholder="标签，多个用 , 号分割" value="<%= typeof(tags) !== 'undefined' && tags || '' %>">
+              </div>
+        
+          </div>
+
+          <div class='markdown_editor in_editor'>
+            <div class='markdown_in_editor'>
+              <div class="form-group">
+                  <label>内容：</label>
+                  <textarea id="editor" class="" name='t_content' rows='20' style="width:100%;height: 200px;" placeholder='文章支持 Markdown 语法, 请注意标记代码'><%= typeof(content) !== 'undefined' && content || '' %></textarea>
+              </div>
+              <div class="clearfix">
+                  <span class="pull-left">
+                      <% if (typeof(action) !== 'undefined' && action === 'edit') { %>
+                      <button type="submit" class="btn btn-primary submit-btn" id="save">保存</button>
+                      <% } else { %>
+                      <button type="submit" class="btn btn-primary submit-btn" id="submit">发布</button>
+                      <button type="submit" class="btn btn-primary draft-btn" id="draft">存草稿</button>
+                      <% } %>
+                  </span>
+              </div>
+            </div>
+          </div>
+
+          <input type='hidden' id='topic_tags' name='topic_tags' value=''>
+          <input type='hidden' name='_csrf' value='<%= csrf %>'>
+          <input type='hidden' name='op' value=''>
+        </fieldset>
+      </form>
+      <% } %>
+    </div>
+    
+  </div>
+</div>
+
+<!-- qiniu editor -->
+<link rel="stylesheet" href="/public/libs/umeditor/themes/default/_css/umeditor.css">
+<link rel="stylesheet" href="/public/libs/sweet-alert/sweet-alert.css">
+<script type="text/javascript" src="/public/libs/sweet-alert/sweet-alert.min.js"></script>
+<script type="text/javascript" src="/public/libs/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" src="/public/libs/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="/public/libs/umeditor/plupload.full.min.js"></script>
+<script type="text/javascript" src="/public/libs/umeditor/qiniu.min.js"></script>
+<script src="/umeditor/qiniu.init.js"></script>
+
+<script>
+var um = UM.getEditor('editor');
+</script>
+<script>
+  $(document).ready(function () {
+    $('.submit-btn').click(function () {
+      var $btn = $(this);
+      var $form = $btn.closest('form');
+      $form.find('[name=content]').val(um.getContent());
+      $form.find('[name=op]').val('publish');
+      $form.submit();
+    });
+    $('.draft-btn').click(function () {
+      var $btn = $(this);
+      var $form = $btn.closest('form');
+      $form.find('[name=content]').val(um.getContent());
+      $form.find('[name=op]').val('draft');
+      $form.submit();
+    });
+  });
+</script>
+
+
+

@@ -1,0 +1,8 @@
+<tr>
+    <td><a href=""><%= topic.title %></a></td>
+    <td><%= topic.friendly_create_at %></td>
+    <td width=300 align=center >
+      <a href="/topic/<%= topic._id %>/edit" class="btn btn-xs btn-primary">编辑</a>
+      <button class="btn btn-xs btn-danger admin-del" data-id="<%= topic._id %>">删除</button>
+    </td>
+</tr>

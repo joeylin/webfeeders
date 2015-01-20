@@ -1,0 +1,22 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>标题</th>
+			<th>日期</th>
+			<th width=150 align=center >操作</th>
+		</tr>
+	</thead>
+    <tbody>
+		
+		<% for(var i=0; i < topics.length; i++)  { %>
+		<tr>
+		    <td><a href=""><%= topics[i].title %></a></td>
+		    <td><%= topics[i].friendly_create_at %></td>
+		    <td>
+		      <a href="/topics/<%= topics[i].id %>/edit" class="btn btn-xs btn-primary">编辑</a>
+		      <button class="btn btn-xs btn-danger admin-del" data-id="<%= topics[i].id %>">删除</button>
+		    </td>
+		</tr>
+		<% } %>
+    </tbody>
+</table>

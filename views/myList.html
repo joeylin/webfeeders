@@ -1,0 +1,115 @@
+<div class="clearfix">
+    <h2 style="margin-top:0;margin-bottom:20px;">资源管理 <small>你的级别是：</small></h2>
+</div>
+<div class="clearfix" style="margin-bottom: 15px;">
+    <a href="/profile/publish" class="btn btn-primary pull-left">已发布</a>
+    <a href="/profile/draft" class="btn btn-primary pull-left">我的草稿</a>
+    <a href="/profile/pending" class="btn btn-primary pull-left">待审核</a>
+    <a href="/topic/create" class="btn btn-primary pull-right">添加内容</a>
+</div>
+<table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>标题</th>
+        <th>日期</th>
+        <th>分类</th>
+        <th>操作</th>
+      </tr>
+      <%- partial('topic/user_list', {collection:topics, as:'topic'}) %>
+    </tbody>
+</table>
+
+<nav current_page='<%= current_page %>'>
+    <div class="paging clearfix">
+        <% var base_url = base + (base.indexOf('?') < 0 ? '?' : '&') + 'page='; %>
+        <% if (current_page == 1) { %>
+        <a class="diabled">首页</a>
+        <% } else { %>
+        <a href="<%= base_url %>1">首页</a>
+        <% } %>
+
+        <%
+        var page_start = current_page - 2 > 0 ? current_page - 2 : 1;
+        var page_end = page_start + 4 >= pages ? pages : page_start + 4;
+        %>
+
+        <% if (current_page > 1) { %>
+        <a href="<%= base_url + (current_page - 1) %>">上一页</a>
+        <% } else { %>
+        <a href="#" class="disabled">上一页</a>
+        <% } %>
+
+        <% for(var i = page_start; i <= page_end; i++) { %>
+        <% if (i === current_page) { %>
+        <a class="current"><%= i %></a>
+        <% } else { %>
+        <a href='<%= base_url + i %>'><%= i %></a>
+        <% } %>
+        <% } %>
+
+        <% if (current_page < pages ) { %>
+        <a href="<%= base_url + (current_page + 1) %>">下一页</a>
+        <% } else { %>
+        <a href="#" class="disabled">下一页</a>
+        <% } %>
+
+        <% if (current_page == pages) { %>
+        <a href="" class="disbaled">尾页</a>
+        <% } else { %>
+        <a href="<%= base_url + pages %>">尾页</a>
+        <% } %>
+
+    </div>
+</nav>
+
+<link rel="stylesheet" href="/public/libs/sweet-alert/sweet-alert.css">
+<%- Loader('/public/topic_edit.min.js')
+.js('/public/libs/sweet-alert/sweet-alert.min.js')
+.done(assets, config.site_static_host, config.mini_assets)
+%>
+<script type="text/javascript">
+    $(function() {
+        $('.admin-del').click(function () {
+          var $btn = $(this);
+          var $tr = $(this).closest('tr');
+          var id = $btn.data('id');
+          swal({
+            title: '确定要删除此内容吗？',
+            text: '删除后将无法恢复',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: '确定删除',
+            cancelButtonText: '取消'
+          }, function() {
+            $.post('/topic/' + id + '/delete', function (msg, res) {
+              if (!msg.success) {
+                return false;
+              }
+              $tr.remove();
+            });
+          });
+        });
+        $('.admin-publish').on('click', function() {
+          var $btn = $(this);
+          var $tr = $(this).closest('tr');
+          var id = $btn.data('id');
+          swal({
+            title: '确定要发布此内容吗？',
+            text: '发布之前请仔细核对你的内容',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: '确定发布',
+            cancelButtonText: '取消'
+          }, function() {
+            $.post('/topic/' + id + '/publish', function (msg, res) {
+              if (!msg.success) {
+                return false;
+              }
+              $tr.remove();
+            });
+          });
+        });
+    });
+</script>

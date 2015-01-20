@@ -1,0 +1,19 @@
+
+<div id='content'>
+  <div class=''>
+    <div class='inner' >
+      <% if(typeof(error) !== 'undefined' && error){ %>
+      <div class="alert alert-danger">
+        <strong><%= error %></strong>
+        <a href="/signin">点击登录</a>
+      </div>
+      <% } %>
+      <% if(typeof(success) !== 'undefined' && success){ %>
+      <div class="alert alert-success">
+        <strong><%= success %></strong>
+        <a href="/signin">点击登录</a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
