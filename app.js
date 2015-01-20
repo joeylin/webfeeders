@@ -131,7 +131,7 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(config.port, function () {
-  console.log("NodeClub listening on port %d in %s mode", config.port, app.settings.env);
+  console.log("WebFeeders listening on port %d in %s mode", config.port, app.settings.env);
   console.log("God bless love....");
   console.log("You can debug your app with http://" + config.hostname + ':' + config.port);
 });

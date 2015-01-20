@@ -1,8 +1,3 @@
-/*!
- * nodeclub - route.js
- * Copyright(c) 2012 fengmk2 <fengmk2@gmail.com>
- * MIT Licensed
- */
 
 /**
  * Module dependencies.
@@ -21,7 +16,6 @@ var session = require('./middlewares/session');
 var limit = require('./middlewares/limit');
 var status = require('./controllers/status');
 var github = require('./controllers/github');
-var search = require('./controllers/search');
 var passport = require('passport');
 var configMiddleware = require('./middlewares/conf');
 var config = require('./config');
